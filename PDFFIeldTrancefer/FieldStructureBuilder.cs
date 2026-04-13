@@ -13,7 +13,7 @@ public class FieldStructureBuilder
         {
             PdfAcroForm oldForm = PdfAcroForm.GetAcroForm(oldPdf, false);
             PdfAcroForm newForm = PdfAcroForm.GetAcroForm(newPdf, true);
-
+            var sizeMap = PdfFieldSizeExtractor.Extract(oldPdfPath);
             var oldFields = oldForm.GetFormFields();
             PdfPage page = newPdf.GetFirstPage();
 
@@ -23,7 +23,16 @@ public class FieldStructureBuilder
                 PdfFormField oldField = field.Value;
 
                 // 🔥 Dummy rect (same place for all)
-                Rectangle dummyRect = new Rectangle(10, 10, 10, 10);
+                //   Rectangle dummyRect = new Rectangle(10, 10, 10, 10);
+                float w = 10;
+                float h = 10;
+
+                if (sizeMap.ContainsKey(name))
+                {
+                    (w, h) = sizeMap[name];
+                }
+
+                Rectangle dummyRect = new Rectangle(10, 10, h, w);
 
                 PdfFormField newField;
 
