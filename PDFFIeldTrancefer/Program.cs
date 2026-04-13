@@ -4,15 +4,27 @@ class Program
 {
     static void Main()
     {
-        string oldPdfPath = @"D:\CSProject\Forms - Copy\old pdf.pdf";
-        string newPdfPath = @"D:\CSProject\Forms - Copy\new pdf.pdf";
+        string oldPdf = @"D:\CSProject\Forms - Copy\old pdf.pdf";
+        string newPdf = @"D:\CSProject\Forms - Copy\new pdf.pdf";
 
-        Console.WriteLine("===== OLD PDF ANALYSIS =====");
-        var analyzer = new PdfFieldAnalyzer();
-        analyzer.Analyze(oldPdfPath);
+        string outputPdf = $@"D:\CSProject\Forms - Copy\output_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+        PdfFieldSizeExtractor.Extract(oldPdf);
+        FieldStructureBuilder.Build(oldPdf, newPdf, outputPdf);
 
-        Console.WriteLine("\n\n===== NEW PDF CHECK =====");
-        NewPdfDetector.Check(newPdfPath); // ✅ FIXED
+        // 🔥 Step 1: Copy fields
+       // PdfFieldCopier.CopyFields(oldPdf, newPdf, outputPdf);
+
+       // // 🔥 Step 2: Compare OLD vs OUTPUT
+       //PdfFieldDebugger.CompareFieldAngles(oldPdf, outputPdf);
+
+
+       // string inputPdf = @"D:\CSProject\Forms - Copy\new pdf.pdf";
+
+       // string outputPdf1 = $@"D:\CSProject\Forms - Copy\manual_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+       // ManualFieldDrawer.DrawFields(inputPdf, outputPdf1);
+
+       
 
         Console.ReadKey();
     }
