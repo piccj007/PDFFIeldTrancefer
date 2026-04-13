@@ -10,21 +10,24 @@ class Program
         string outputPdf = $@"D:\CSProject\Forms - Copy\output_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
         PdfFieldSizeExtractor.Extract(oldPdf);
         FieldStructureBuilder.Build(oldPdf, newPdf, outputPdf);
+        string debugPdf = $@"D:\CSProject\Forms - Copy\debug-output_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+        DebugFieldLayout.GenerateDebugPdf(oldPdf, debugPdf);
 
         // 🔥 Step 1: Copy fields
-       // PdfFieldCopier.CopyFields(oldPdf, newPdf, outputPdf);
+        // PdfFieldCopier.CopyFields(oldPdf, newPdf, outputPdf);
 
-       // // 🔥 Step 2: Compare OLD vs OUTPUT
-       //PdfFieldDebugger.CompareFieldAngles(oldPdf, outputPdf);
+        // // 🔥 Step 2: Compare OLD vs OUTPUT
+        //PdfFieldDebugger.CompareFieldAngles(oldPdf, outputPdf);
 
 
-       // string inputPdf = @"D:\CSProject\Forms - Copy\new pdf.pdf";
+        // string inputPdf = @"D:\CSProject\Forms - Copy\new pdf.pdf";
 
-       // string outputPdf1 = $@"D:\CSProject\Forms - Copy\manual_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+        // string outputPdf1 = $@"D:\CSProject\Forms - Copy\manual_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
 
-       // ManualFieldDrawer.DrawFields(inputPdf, outputPdf1);
+        // ManualFieldDrawer.DrawFields(inputPdf, outputPdf1);
 
-       
+
 
         Console.ReadKey();
     }
