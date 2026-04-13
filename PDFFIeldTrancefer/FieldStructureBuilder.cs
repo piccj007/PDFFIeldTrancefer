@@ -22,45 +22,30 @@ public class FieldStructureBuilder
                 string name = field.Key;
                 PdfFormField oldField = field.Value;
 
-                var widgets = oldField.GetWidgets();
-
-                float w = 100;
-                float h = 20;
-
-                if (widgets != null && widgets.Count > 0)
-                {
-                    Rectangle rect = widgets[0].GetRectangle().ToRectangle();
-
-                    // 🔥 ONLY SIZE USE
-                    w = rect.GetWidth();
-                    h = rect.GetHeight();
-
-                    Console.WriteLine($"SIZE → {name}: W={w}, H={h}");
-                }
-
-                // 🔥 SAME POSITION FOR ALL (ignore position logic)
-                float x = 50;
-                float y = 700;
-
-                Rectangle newRect = new Rectangle(x, y, w, h);
+                // 🔥 Dummy rect (same place for all)
+                Rectangle dummyRect = new Rectangle(10, 10, 10, 10);
 
                 PdfFormField newField;
 
                 if (oldField is PdfTextFormField)
                 {
-                    newField = PdfTextFormField.CreateText(newPdf, newRect, name, "");
+                    newField = PdfTextFormField.CreateText(newPdf, dummyRect, name, "");
+                    Console.WriteLine($"TEXT → {name}");
                 }
                 else if (oldField is PdfButtonFormField)
                 {
-                    newField = PdfButtonFormField.CreateCheckBox(newPdf, newRect, name, "Yes");
+                    newField = PdfButtonFormField.CreateCheckBox(newPdf, dummyRect, name, "Yes");
+                    Console.WriteLine($"BUTTON → {name}");
                 }
                 else if (oldField is PdfChoiceFormField)
                 {
-                    newField = PdfChoiceFormField.CreateComboBox(newPdf, newRect, name, "", new string[] { });
+                    newField = PdfChoiceFormField.CreateComboBox(newPdf, dummyRect, name, "", new string[] { });
+                    Console.WriteLine($"DROPDOWN → {name}");
                 }
                 else
                 {
-                    newField = PdfTextFormField.CreateText(newPdf, newRect, name, "");
+                    newField = PdfTextFormField.CreateText(newPdf, dummyRect, name, "");
+                    Console.WriteLine($"UNKNOWN → {name}");
                 }
 
                 newForm.AddField(newField, page);
